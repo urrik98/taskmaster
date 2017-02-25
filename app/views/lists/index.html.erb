@@ -14,7 +14,7 @@
   <tbody>
     <% @lists.each do |list| %>
       <tr>
-        <td><%=link_to list.name, list %></td>
+        <td><%=link_to list.name, list_path(list.id) %></td>
         <td><%= list.date.strftime('%B %d, %Y') %></td>
         <td></td>
         <td><%= link_to 'Edit', edit_list_path(list) %></td>
