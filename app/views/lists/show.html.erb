@@ -1,0 +1,31 @@
+<%= gflash %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @list.name %> <%= number_to_percentage(@list.completed * 100, :precision => 2) %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @list.date.strftime('%B %d, %Y') %>
+</p>
+
+<ol>
+  <% @list.todos.each do |t| %>
+    <li>
+      <%= form_for([@list, t], :remote => true) do |f| %>
+        <%= f.select :status, options_for_select(t.status_list, selected: t.status), {}, onchange:"$(this.closest('form')).submit()" %> <%= t.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ol>
+
+<%= link_to 'Edit', edit_list_path(@list) %> |
+<%= link_to 'Back', lists_path %>
+
+
+<script>
+  function logIt(a) {
+    console.log(a)
+  }
+</script>
