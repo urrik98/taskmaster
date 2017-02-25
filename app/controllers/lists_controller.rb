@@ -4,12 +4,12 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.all.order('date ASC')
+    @lists = List.order('date ASC')
   end
 
   # GET /lists/1
   # GET /lists/1.json
-  def show  
+  def show
   end
 
   # GET /lists/new

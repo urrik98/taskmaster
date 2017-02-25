@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170225015833) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "lists", force: :cascade do |t|
     t.string   "name"
     t.date     "date"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170225015833) do
     t.integer  "list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["list_id"], name: "index_todos_on_list_id"
+    t.index ["list_id"], name: "index_todos_on_list_id", using: :btree
   end
 
 end
