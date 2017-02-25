@@ -25,6 +25,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'faker'
 gem 'gritter', '1.2.0'
+gem 'pg'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
