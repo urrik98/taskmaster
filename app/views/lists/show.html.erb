@@ -29,7 +29,7 @@
   </div> <!-- close row 1 -->
 
   <div class="row">
-    <div class="col-md-6 col-md-offset-3"  style="background-color:rgba(255,255,255,.5);border-radius:0px 0px 9px 9px;">
+    <div class="col-md-6 col-md-offset-3"  style="background-color:rgba(255,255,255,.5);border-radius:0px 0px 0px 0px;">
       <%= form_for([@list, @list.todos.build], :controller => "todos", :action => :create, :remote => true) do |f|%>
         <div class="row">
           <div class="col-sm-9 form-group">
@@ -47,5 +47,13 @@
       <% end %>
     </div>
   </div><!-- close row 2 -->
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3" style="background-color:rgba(255,255,255,.5);border-radius:0px 0px 9px 9px;">
+      <br>
+      <%= link_to "To -> Lists", lists_path, :class => "btn btn-default btn-block" %>
+      <br>
+    </div>
+  </div>
 
 </div> <!-- close container -->
