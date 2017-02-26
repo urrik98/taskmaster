@@ -16,3 +16,9 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ body {
+   background-image: url('/assets/DreamTech-background-v1-h.png');
+   background-size: cover;
+   background-repeat: no-repeat;
+ }
