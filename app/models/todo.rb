@@ -3,6 +3,7 @@ class Todo < ApplicationRecord
   before_validation :set_default_status, on: :create
   after_update :check_status
   after_update :calc_list_doneness
+  after_create :calc_list_doneness
 
   def set_default_status
     self.status = "Pending"

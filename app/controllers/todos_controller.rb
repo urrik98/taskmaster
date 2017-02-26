@@ -25,13 +25,15 @@ class TodosController < ApplicationController
   # POST /todos.json
   def create
     @todo = Todo.new(todo_params)
+    @list = List.find(params[:list_id])
+    @todo.list_id = params[:list_id]
 
     respond_to do |format|
       if @todo.save
-        format.html { redirect_to @todo, :gflash => {:success => "Task successfully added"} }
+        format.html { redirect_to list_path(params[:list_id]), :gflash => {:success => "Task successfully added"} }
         format.json { render :show, status: :created, location: @todo }
       else
-        format.html { render :new }
+        format.html { render :new, :gflash => {:error => "Something went wrong"} }
         format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
     end
