@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-25.times do
+10.times do
   l= List.create(name:Faker::Lorem.word, date:Faker::Date.between(Date.today, 4.year.from_now))
   12.times do
     l.todos.create(name:Faker::Lorem.sentence, desc:Faker::Lorem.paragraph)

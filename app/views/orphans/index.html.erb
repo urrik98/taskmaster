@@ -1,0 +1,26 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <table class="table-striped">
+        <thead>
+          <tr>
+            <td colspan="1"></td>
+            <td style="padding-left:20px;"><h5>Task</h5></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orphans.each do |o| %>
+            <tr>
+              <td><%= form_for(o, url: orphans_update_path(todo_id:o.id), :remote => true) do |f| %>
+                    <%= f.select :status, options_for_select(@listdates, selected:"unassigned"), {:include_black => true}, onchange:"$(this.closest('form')).submit()" %>
+                  <% end %></td>
+              <td style="padding-left:20px;"><%= o.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div> <!-- close container -->
