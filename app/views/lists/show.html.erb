@@ -6,7 +6,11 @@
         <thead>
           <tr>
             <td colspan="2">
-              <h3 class="text-center"><%= @list.date.strftime('%B %d, %Y') %> - <%= number_to_percentage(@list.completed * 100, :precision => 2) %> complete</h3>
+              <% if @list.name !="Orphans" %>
+                <h3 class="text-center"><%= @list.date.strftime('%B %d, %Y') %> - <%= number_to_percentage(@list.completed * 100, :precision => 2) %> complete</h3>
+              <% else %>
+                  <h3 class="text-center"><%= @list.name %></h3>
+              <% end %>
             </td>
           </tr>
         </thead>

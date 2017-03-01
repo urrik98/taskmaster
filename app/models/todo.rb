@@ -14,8 +14,8 @@ class Todo < ApplicationRecord
     if self.status == "Delete"
       self.delete
     end
-    if self.status == "Orphan" && self.list_id != nil
-      self.update_attributes(list_id: nil)
+    if self.status == "Orphan" && self.list_id != List.find_by(name:"Orphans").id
+      self.update_attributes(list_id: List.find_by(name:"Orphans").id)
     end
   end
 

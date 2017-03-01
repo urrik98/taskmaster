@@ -34,4 +34,5 @@ ActiveRecord::Schema.define(version: 20170226173741) do
     t.index ["list_id"], name: "index_todos_on_list_id", using: :btree
   end
 
+  add_foreign_key "todos", "lists"
 end

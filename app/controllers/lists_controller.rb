@@ -4,7 +4,8 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.order('date ASC')
+    @orphans = List.find_by(name:"Orphans")
+    @lists = List.where.not(name:"Orphans").order('date ASC')
   end
 
   # GET /lists/1
