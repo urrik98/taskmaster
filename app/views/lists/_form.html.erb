@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name, "List name" %>
-    <%= f.text_field :name, :required => true %>
+    <%= f.text_field :name, :required => true, :class => "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :date %>
-    <%= f.date_select :date, :required => true %>
+    <%= f.date_select :date, :required => true, :class => "form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Enter", :class => "btn btn-sm btn-default" %>
   </div>
 <% end %>

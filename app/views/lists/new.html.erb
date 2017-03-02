@@ -1,5 +1,8 @@
-<h1>New List</h1>
-
-<%= render 'form', list: @list %>
-
-<%= link_to 'Back', lists_path %>
+<div class="container">
+  <div class="col-md-1" style="background-color:rgba(255,255,255,.5);border-radius:9px 9px 9px 9px;">
+    <%= render 'layouts/side_nav' %>
+  </div>
+  <div class="col-md-6 col-md-offset-2"  style="background-color:rgba(255,255,255,.5);border-radius:9px 9px 9px 9px;">
+    <%= render 'form', list: @list %>
+  </div>
+</div>

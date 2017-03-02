@@ -2,7 +2,7 @@ class Todo < ApplicationRecord
   belongs_to :list
   before_validation :set_default_status, on: :create
   after_update :check_status
-  after_update :calc_list_doneness, if: :is_not_orphan?
+  after_update :calc_list_doneness
   after_create :calc_list_doneness
 
   def set_default_status
@@ -16,6 +16,10 @@ class Todo < ApplicationRecord
     end
     if self.status == "Orphan" && self.list_id != List.find_by(name:"Orphans").id
       self.update_attributes(list_id: List.find_by(name:"Orphans").id)
+    end
+    if self.status == "Orphan" && self.list_id == List.find_by(name: "Orphans").id && self.new_list_date != nil
+      new_date = self.new_list_date
+      self.update_attributes(list_id: List.find_by(date: new_date).id, new_list_date:nil, status:"Pending")
     end
   end
 
@@ -34,6 +38,10 @@ class Todo < ApplicationRecord
       "Orphan",
       "Delete"
     ]
+  end
+  def existing_lists
+    @l = List.where.not(name: "Orphans").order('date ASC').pluck(:date)
+    @l.unshift("Choose")
   end
 
 end

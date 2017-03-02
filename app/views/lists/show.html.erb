@@ -19,10 +19,17 @@
             <tr>
               <td>
                 <%= form_for([@list, todo], :remote => true) do |f| %>
-                  <%= f.select :status, options_for_select(todo.status_list, selected: todo.status), {}, onchange:"$(this.closest('form')).submit()" %>
+                  <% if @list.name != "Orphans" %>
+                    <%= f.select :status, options_for_select(todo.status_list, selected: todo.status), {}, onchange:"$(this.closest('form')).submit()" %>
+                  <% else %>
+                    <%= f.select :new_list_date, options_for_select(todo.existing_lists, selected:"Choose"), {}, onchange:"$(this.closest('form')).submit()" %>
+                  <% end %>
                 <% end %>
               </td>
               <td>
+                <% if todo.status == "Complete" %>
+                  <span class="glyphicon glyphicon-ok" style="color:green;">&nbsp;</span>
+                <% end %>
                 <%= todo.name %>
               </td>
             </tr>
