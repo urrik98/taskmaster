@@ -1,21 +1,31 @@
-
-<div class="container">
-
+<div class="container-fluid" style="margin-top:-20px; ">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3" style="background-color:rgba(255,255,255,.5);border-radius:9px 9px 0px 0px;">
-      <h3 class="text-justified"><%= link_to "Orphans - "+@orphans.todos.count.to_s, list_path(@orphans.id) %></h3>
-      <% @lists.each do |list| %>
-        <h3 class="text-justified"><%= link_to list.date.strftime('%B %d, %Y')+' - '+ number_to_percentage(list.completed * 100, :precision => 2)+' complete', list_path(list.id) %></h3>
-      <% end %>
+    <div class="col-md-3" style="background-color:#0064c8;min-height:800px;">
+      <div class="row">
+        <div class="col-sm-12" style="background-color:rgba(255,255,255,.2);color:white;margin-top:50px;">
+          <h3 class="text-center">Lists</h3>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12" style="background-color:rgba(255,255,255,.2);color:white;">
+          <ul style="list-style-type:none;margin-left:25px;padding-left:0px;">
+            <% @lists.each do |list| %>
+              <li  style="padding-bottom:5px;"><%= link_to list.date.strftime('%B %d, %Y')+' - '+ number_to_percentage(list.completed * 100, :precision => 2)+' complete', list_path(list.id), :style => "color:white;" %>
+            <% end %>
+          </ul>
+          <br>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12" style="background-color:rgba(255,255,255,.2);color:white;">
+          <hr>
+          <h5 class="text-center"><%= link_to @unassigned.todos.count.to_s+" unassigned tasks", list_path(@unassigned.id), :style => "color:white;" %></h5>
+          <hr>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3" style="background-color:rgba(255,255,255,.5);border-radius:0px 0px 9px 9px;">
-      <br>
-      <%= link_to 'New List', new_list_path, :class => "btn btn-default btn-block" %>
-      <br>
-    </div>
-  </div>
-
 </div>

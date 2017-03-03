@@ -17,17 +17,9 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
- @media (min-width:300px) {
-   body {
-     background-image: url('/assets/DreamTech-background-v1-v.png');
-     background-size: cover;
-     background-repeat: no-repeat;
-   }
+ .navbar {
+     -webkit-box-shadow: 0 8px 6px -6px #888;
+     -moz-box-shadow: 0 8px 6px -6px #888;
+     box-shadow: 0 8px 6px -6px #888;
+
  }
- @media (min-width:1000px) {
-   body {
-     background-image: url('/assets/DreamTech-background-v1-h.png');
-     background-size: cover;
-     background-repeat: no-repeat;
-   }
-}
