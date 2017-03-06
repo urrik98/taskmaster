@@ -1,4 +1,5 @@
 class List < ApplicationRecord
+  belongs_to :user
   has_many :todos
   validates_uniqueness_of :date
   validates_presence_of :date, if: :not_orphan_list?

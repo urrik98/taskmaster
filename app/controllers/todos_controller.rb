@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  before_action :authenticate_user!
 
   # GET /todos
   # GET /todos.json
@@ -14,7 +15,6 @@ class TodosController < ApplicationController
 
   # GET /todos/new
   def new
-    @todo = Todo.new
   end
 
   # GET /todos/1/edit
@@ -25,7 +25,6 @@ class TodosController < ApplicationController
   # POST /todos
   # POST /todos.json
   def create
-    @todo = Todo.new(todo_params)
     @list = List.find(params[:list_id])
     @todo.list_id = params[:list_id]
 
@@ -66,9 +65,6 @@ class TodosController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_todo
-      @todo = Todo.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_params

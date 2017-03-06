@@ -1,9 +1,12 @@
 <div class="container-fluid" style="margin-top:-20px; ">
+
   <div class="row">
-    <div class="col-md-3" style="background-color:#0064c8;min-height:800px;">
+
+    <div class="col-md-3" style="background-color:#0064c8;height:100vh;">
+
       <div class="row">
         <div class="col-sm-12" style="background-color:rgba(255,255,255,.2);color:white;margin-top:50px;">
-          <h3 class="text-center">Lists</h3>
+          <h3 class="text-center"><%= link_to "Lists", lists_path, :style => "color:white;" %></h3>
           <hr>
         </div>
       </div>
@@ -26,6 +29,19 @@
           <hr>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-sm-12" style="background-color:rgba(255,255,255, .2);">
+          <h6 class="text-center"><%= link_to "Create New List", new_list_path, :class => "btn btn-sm btn-default" %></h6>
+          <hr>
+        </div>
+      </div>
+
     </div>
+
+    <div class="col-md-8 col-md-offset-1">
+    </div>
+
   </div>
+
 </div>

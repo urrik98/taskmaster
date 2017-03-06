@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  before_action :authenticate_user!
 
   # GET /lists
   # GET /lists.json
@@ -15,7 +16,6 @@ class ListsController < ApplicationController
 
   # GET /lists/new
   def new
-    @list = List.new
   end
 
   # GET /lists/1/edit
@@ -25,7 +25,7 @@ class ListsController < ApplicationController
   # POST /lists
   # POST /lists.json
   def create
-    @list = List.new(list_params)
+    @list.user_id:current_user.id
 
     respond_to do |format|
       if @list.save
@@ -64,9 +64,6 @@ class ListsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_list
-      @list = List.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
