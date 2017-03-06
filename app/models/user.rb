@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :lists
   validates_presence_of :name
   before_save :assign_role
+  after_create :create_unassigned_todos_list
 
   def assign_role
     self.role = Role.find_by name: "Regular" if self.role.nil?
@@ -14,5 +15,9 @@ class User < ApplicationRecord
 
   def admin?
     self.role && self.role.name == "Admin"
+  end
+
+  def create_unassigned_todos_list
+    self.lists.create(name:"Orphans")
   end
 end
