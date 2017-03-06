@@ -25,7 +25,7 @@ class ListsController < ApplicationController
   # POST /lists
   # POST /lists.json
   def create
-    @list.user_id:current_user.id
+    @list.user_id = current_user.id
 
     respond_to do |format|
       if @list.save
