@@ -26,7 +26,11 @@
               <% else %>
                 <% complete = number_to_percentage(list.completed * 100, :precision => 2)+ ' complete'%>
               <% end %>
+              <% if list.date == Time.zone.today %>
+               <li style="padding-bottom:5px;"><%= link_to '>> '+list.date.strftime('%B %d, %Y')+' - '+ complete, list_path(list.id), :style => "color:white;" %>
+              <% else %>
                <li style="padding-bottom:5px;"><%= link_to list.date.strftime('%B %d, %Y')+' - '+ complete, list_path(list.id), :style => "color:white;" %>
+              <% end %>
             <% end %>
           </ul>
           <br>
