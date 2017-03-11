@@ -6,20 +6,26 @@ class Todo < ApplicationRecord
   after_create :calc_list_doneness
 
   def set_default_status
-    self.status = "Pending"
+    if self.list == List.find_by(name:"Orphans")
+      self.status = "Orphan"
+    else
+      self.status = "Pending"
+    end
     self.original_list = self.list_id
+    self.vaporize = false
   end
 
   def check_status
-    if self.status == "Delete"
+    if self.status == "Delete" || self.vaporize == true
       self.delete
-    end
-    if self.status == "Orphan" && self.list_id != List.find_by(name:"Orphans").id
-      self.update_attributes(list_id: List.find_by(name:"Orphans").id)
-    end
-    if self.status == "Orphan" && self.list_id == List.find_by(name: "Orphans").id && self.new_list_date != nil
-      new_date = self.new_list_date
-      self.update_attributes(list_id: List.find_by(date: new_date).id, new_list_date:nil, status:"Pending")
+    else
+      if self.status == "Orphan" && self.list_id != List.find_by(name:"Orphans").id
+        self.update_attributes(list_id: List.find_by(name:"Orphans").id)
+      end
+      if self.status == "Orphan" && self.list_id == List.find_by(name: "Orphans").id && self.new_list_date != nil
+        new_date = self.new_list_date
+        self.update_attributes(list_id: List.find_by(date: new_date).id, new_list_date:nil, status:"Pending")
+      end
     end
   end
 
@@ -41,7 +47,9 @@ class Todo < ApplicationRecord
   end
   def existing_lists
     @l = List.where.not(name: "Orphans").order('date ASC').pluck(:date)
+    @l.unshift("Delete")
     @l.unshift("Choose")
+
   end
 
 end
