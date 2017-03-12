@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170311182929) do
+ActiveRecord::Schema.define(version: 20170311204339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 20170311182929) do
   create_table "lists", force: :cascade do |t|
     t.string   "name"
     t.date     "date"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.decimal  "completed",  precision: 5, scale: 2
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.decimal  "completed_percentage", precision: 5, scale: 2
     t.integer  "user_id"
+    t.decimal  "completed_score",      precision: 5, scale: 2
     t.index ["user_id"], name: "index_lists_on_user_id", using: :btree
   end
 

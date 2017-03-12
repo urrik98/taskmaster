@@ -24,7 +24,7 @@
               <% if list.todos.count == 0 %>
                 <% complete = "no tasks" %>
               <% else %>
-                <% complete = number_to_percentage(list.completed * 100, :precision => 2)+ ' complete'%>
+                <% complete = number_to_percentage(list.completed_percentage * 100, :precision => 2)+ ' complete'%>
               <% end %>
               <% if list.date == Time.zone.today %>
                <li style="padding-bottom:5px;"><%= link_to '>> '+list.date.strftime('%B %d, %Y')+' - '+ complete, list_path(list.id), :style => "color:white;" %>
@@ -54,9 +54,43 @@
 
     </div>
 
-    <div class="col-md-8 col-md-offset-1">
+    <div class="col-md-7 col-md-offset-1">
+      <div id="score-chart" style="margin-top:30px;height:400px;"></div>
     </div>
 
   </div>
 
 </div>
+<script>
+  google.charts.load('current', {'packages':['bar']});
+
+  $.get("<%= Rails.application.routes.url_helpers.lists_stats_path %>").done(function(response){
+    console.log(response)
+    // var parsed = JSON.parse(response)
+    // console.log(parsed)
+    response.forEach(function(element) {
+      console.log(element[0], typeof element[0], element[1], typeof element[1])
+      element[1] = Number(element[1])
+      console.log(element[1], typeof element[1])
+    })
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Date');
+      data.addColumn('number', 'Score');
+      data.addRows(response);
+      var options = {
+        legend: {
+          position: 'none'
+        },
+        chart: {
+          title: "Daily task score",
+          subtitle: "Tasks done x Percentage complete"
+        },
+        bar: {groupWidth: '20px'}
+      }
+      var chart = new google.charts.Bar(document.getElementById('score-chart'));
+      chart.draw(data, options);
+    }
+  })
+</script>

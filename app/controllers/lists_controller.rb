@@ -62,6 +62,19 @@ class ListsController < ApplicationController
     end
   end
 
+  def stats
+    @lists = List.all.order(:date).pluck(:date, :completed_score)
+    @formatted_lists = []
+    @lists.each do |l|
+      if l[0] != nil
+        fd = l[0].strftime('%B %d, %Y')
+        puts fd
+        @formatted_lists.push([fd, l[1]])
+      end
+    end
+    render json: @formatted_lists
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
 

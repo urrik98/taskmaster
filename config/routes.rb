@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :roles
   get 'orphans/index'
 
-  patch 'orphans/update'
+  get 'lists/stats'
 
   resources :lists do
     resources :todos
@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     root :to => 'devise/sessions#new'
   end
+
+
 
 end

@@ -11,7 +11,8 @@ class List < ApplicationRecord
     done = BigDecimal.new(self.todos.where(status:"Complete").count)
     total = BigDecimal.new(self.todos.count)
     perc = done/total
-    self.update_attributes(completed:perc)
+    score = BigDecimal(perc * self.todos.where(status:'Complete').count)
+    self.update_attributes(completed_percentage:perc, completed_score:score)
   end
 
   def not_orphan_list?
@@ -19,6 +20,7 @@ class List < ApplicationRecord
   end
 
   def set_default_doneness
-    self.completed = 0
+    self.completed_percentage = 0
+    self.completed_score = 0
   end
 end
