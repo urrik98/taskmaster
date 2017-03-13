@@ -68,7 +68,6 @@ class ListsController < ApplicationController
     @lists.each do |l|
       if l[0] != nil
         fd = l[0].strftime('%B %d, %Y')
-        puts fd
         @formatted_lists.push([fd, l[1]])
       end
     end

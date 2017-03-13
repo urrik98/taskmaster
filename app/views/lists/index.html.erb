@@ -40,7 +40,11 @@
       <div class="row">
         <div class="col-sm-12" style="background-color:rgba(255,255,255,.2);color:white;">
           <hr>
-          <h5 class="text-center"><%= link_to @unassigned.todos.count.to_s+" unassigned tasks", list_path(@unassigned.id), :style => "color:white;" %></h5>
+          <% if @unassigned.todos.count != 1 %>
+            <h5 class="text-center"><%= link_to @unassigned.todos.count.to_s+" unassigned tasks", list_path(@unassigned.id), :style => "color:white;" %></h5>
+          <% else %>
+            <h5 class="text-center"><%= link_to @unassigned.todos.count.to_s+" unassigned task", list_path(@unassigned.id), :style => "color:white;" %></h5>
+          <% end %>
           <hr>
         </div>
       </div>
@@ -65,13 +69,8 @@
   google.charts.load('current', {'packages':['bar']});
 
   $.get("<%= Rails.application.routes.url_helpers.lists_stats_path %>").done(function(response){
-    console.log(response)
-    // var parsed = JSON.parse(response)
-    // console.log(parsed)
     response.forEach(function(element) {
-      console.log(element[0], typeof element[0], element[1], typeof element[1])
       element[1] = Number(element[1])
-      console.log(element[1], typeof element[1])
     })
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {

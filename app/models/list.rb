@@ -3,8 +3,6 @@ class List < ApplicationRecord
   has_many :todos
   validates_uniqueness_of :date
   validates_presence_of :date, if: :not_orphan_list?
-  validates_uniqueness_of :name
-  validates_presence_of :name
   before_validation :set_default_doneness, on: [:create]
 
   def calc_doneness
