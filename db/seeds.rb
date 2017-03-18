@@ -12,9 +12,24 @@ u1= User.create(name:"Lord Urrik", email:"urrik@lord.com", password:"Deathtongue
 
 o= List.create(name:"Orphans", user_id:u1.id)
 
-6.times do
-  l = List.create(date:Faker::Date.forward(30), name:Faker::Lorem.sentence)
-  5.times do
-    Todo.create(name:Faker::Lorem.sentence, list_id:l.id)
+start = 0
+stop = 1
+
+30.times do
+  l = List.create(date:Faker::Date.between(start.days.ago, stop.days.ago), name:Faker::Lorem.sentence)
+  start += 1
+  stop += 1
+  pending = Faker::Number.between(1, 7)
+  pending.to_i.times do
+    Todo.create(name:Faker::Lorem.sentence, list_id:l.id, status:"Pending")
   end
+  complete = Faker::Number.between(1, 7)
+  complete.to_i.times do
+    Todo.create(name:Faker::Lorem.sentence, list_id:l.id, status:"Complete")
+  end
+  done = BigDecimal.new(l.todos.where(status:"Complete").count)
+  total = BigDecimal.new(l.todos.count)
+  perc = done/total
+  score = BigDecimal(perc * l.todos.where(status:'Complete').count)
+  l.update_attributes(completed_percentage:perc, completed_score:score)
 end
