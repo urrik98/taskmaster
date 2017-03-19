@@ -99,7 +99,7 @@
           }
         },
         bar: {groupWidth: '90%'},
-        colors: ['chartreuse']
+        colors: ['#008000']
       }
       var chart = new google.charts.Bar(document.getElementById('score-chart'));
       chart.draw(data, options);
@@ -120,12 +120,12 @@
           },
           trendlines: {
             0: {
-              type:'linear',
-              color:'#ff8000',
+              type:'polynomial',
+              color:'#FF00FF',
               lineWidth: 2
             }
           },
-          colors: ['chartreuse']
+          colors: ['#008000']
         }
       var chart = new google.visualization.ScatterChart(document.getElementById('trendline-chart'));
       chart.draw(data, options);
