@@ -41,9 +41,9 @@
         <div class="col-sm-12" style="background-color:rgba(255,255,255,.2);color:white;">
           <hr>
           <% if @unassigned.todos.count != 1 %>
-            <h5 class="text-center"><%= link_to @unassigned.todos.count.to_s+" unassigned tasks", list_path(@unassigned.id), :style => "color:white;" %></h5>
+            <h5 class="text-center"><%= link_to @unassigned.todos.count.to_s+" backburner tasks", list_path(@unassigned.id), :style => "color:white;" %></h5>
           <% else %>
-            <h5 class="text-center"><%= link_to @unassigned.todos.count.to_s+" unassigned task", list_path(@unassigned.id), :style => "color:white;" %></h5>
+            <h5 class="text-center"><%= link_to @unassigned.todos.count.to_s+" backburner task", list_path(@unassigned.id), :style => "color:white;" %></h5>
           <% end %>
           <hr>
         </div>
