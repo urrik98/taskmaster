@@ -6,8 +6,8 @@ class Todo < ApplicationRecord
   after_create :calc_list_doneness
 
   def set_default_status
-    if self.list == List.find_by(name:"Orphans")
-      self.status = "Orphan"
+    if self.list == List.find_by(name:"Backburner")
+      self.status = "Backburner"
     else
       self.status = "Pending"
     end
@@ -19,12 +19,12 @@ class Todo < ApplicationRecord
     if self.status == "Delete" || self.vaporize == true
       self.delete
     else
-      if self.status == "Orphan" && self.list_id != List.find_by(name:"Orphans").id #this section covers adding a todo to the unassigned list
+      if self.status == "Backburner" && self.list_id != List.find_by(name:"Backburner").id #this section covers adding a todo to the unassigned list
         old_list_id = self.list.id   #save the current list id
-        self.update_attributes(list_id: List.find_by(name:"Orphans").id)  #reassign the todo to the unassigned list
+        self.update_attributes(list_id: List.find_by(name:"Backburner").id)  #reassign the todo to the unassigned list
         List.find(old_list_id).calc_doneness  #update the old list 'doneness' statistics
       end
-      if self.status == "Orphan" && self.list_id == List.find_by(name: "Orphans").id && self.new_list_date != nil
+      if self.status == "Backburner" && self.list_id == List.find_by(name: "Backburner").id && self.new_list_date != nil
         new_date = self.new_list_date
         self.update_attributes(list_id: List.find_by(date: new_date).id, new_list_date:nil, status:"Pending")
       end
@@ -32,7 +32,7 @@ class Todo < ApplicationRecord
   end
 
   def is_not_orphan?
-    self.status != "Orphan"
+    self.status != "Backburner"
   end
 
   def calc_list_doneness
@@ -43,12 +43,12 @@ class Todo < ApplicationRecord
     return [
       "Pending",
       "Complete",
-      "Orphan",
+      "Backburner",
       "Delete"
     ]
   end
   def existing_lists
-    @l = List.where.not(name: "Orphans").order('date ASC').pluck(:date)
+    @l = List.where.not(name: "Backburner").order('date ASC').pluck(:date)
     @l.unshift("Delete")
     @l.unshift("Choose")
 

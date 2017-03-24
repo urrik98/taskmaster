@@ -2,7 +2,7 @@ class List < ApplicationRecord
   belongs_to :user
   has_many :todos
   validates_uniqueness_of :date
-  validates_presence_of :date, if: :not_orphan_list?
+  validates_presence_of :date, if: :not_backburner_list?
   before_validation :set_default_doneness, on: [:create]
 
   def calc_doneness
@@ -13,7 +13,7 @@ class List < ApplicationRecord
     self.update_attributes(completed_percentage:perc, completed_score:score)
   end
 
-  def not_orphan_list?
+  def not_backburner_list?
     self.name != "Orphans"
   end
 
