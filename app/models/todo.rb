@@ -18,12 +18,14 @@ class Todo < ApplicationRecord
   def check_status
     if self.status == "Delete" || self.vaporize == true
       self.delete
-    else
-      if self.status == "Backburner" && self.list_id != List.find_by(name:"Backburner").id #this section covers adding a todo to the unassigned list
+    else   #this section covers adding a todo to the backburner list and moving it to a dated list
+      # if todo status add a todo to the backburner list by changing its list id
+      if self.status == "Backburner" && self.list_id != List.find_by(name:"Backburner").id
         old_list_id = self.list.id   #save the current list id
-        self.update_attributes(list_id: List.find_by(name:"Backburner").id)  #reassign the todo to the unassigned list
+        self.update_attributes(list_id: List.find_by(name:"Backburner").id)  #reassign the todo to the backburner list
         List.find(old_list_id).calc_doneness  #update the old list 'doneness' statistics
       end
+      # a todo moving from backburner will still have a status and list id of backburner, so use the new_list date to reassign to a dated list
       if self.status == "Backburner" && self.list_id == List.find_by(name: "Backburner").id && self.new_list_date != nil
         new_date = self.new_list_date
         self.update_attributes(list_id: List.find_by(date: new_date).id, new_list_date:nil, status:"Pending")

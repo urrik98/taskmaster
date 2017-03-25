@@ -71,8 +71,9 @@
 
   $.get("<%= Rails.application.routes.url_helpers.lists_stats_path %>").done(function(response){
     response.forEach(function(element) {
-      element[0] = new Date(element[0])
-      element[1] = Number(element[1])
+      element[0] = new Date(element[0]);
+      element[0].setDate(element[0].getDate()+1);
+      element[1] = Number(element[1]);
     });
 
     google.charts.setOnLoadCallback(drawBarChart);
